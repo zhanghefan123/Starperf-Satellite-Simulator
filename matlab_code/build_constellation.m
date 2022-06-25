@@ -1,14 +1,14 @@
 clear all; close all; clc;
 global cycle No_snap No_fac No_leo tStart tStop dT constellation
-dT = 1.0;
-tStart = 0;
-dtr = pi/180; // 弧度转换为角度 degree to radian
-rtd = 180/pi; // 角度转换为弧度 radian to degree
-remMachine = stkDefaultHost; 
+dT = 1.0; %  width of time slot
+tStart = 0; % scenario start time
+dtr = pi/180; % degree to radian
+rtd = 180/pi; % radian to degree
+remMachine = stkDefaultHost; % default localhost:5001
 delete(get(0,'children'));
-conid=stkOpen(remMachine);
+conid=stkOpen(remMachine); % consID return the handle of stk connection
 
-scen_open = stkValidScen;
+scen_open = stkValidScen; % if the scene already exist then return 1 otherwise return 0
 if scen_open == 1
     rtn = questdlg('Close the current scenario?');
     if ~strcmp(rtn,'Yes')
@@ -17,20 +17,20 @@ if scen_open == 1
         stkUnload('/*')
     end
 end
-
-disp('Create a new scenario');
-stkNewObj('/','Scenario','Matlab_Basic');
-disp('Set scenario time period');
-stkSetTimePeriod('1 Dec 2019 0:00:00.0','1 Dec 2019 10:00:00.0','GREGUTC');
-stkSetEpoch('1 Dec 2019 0:00:00.0','GREGUTC');
-cmd1 = ['SetValues "1 Dec 2019 0:00:00.0" ' mat2str(dT)];
+% now we are going to create a new scenario
+disp('Create a new scenario'); % display message
+stkNewObj('/','Scenario','Matlab_Basic'); % create new Scenario
+disp('Set scenario time period'); % display message
+stkSetTimePeriod('1 Dec 2019 0:00:00.0','1 Dec 2019 10:00:00.0','GREGUTC'); % set time
+stkSetEpoch('1 Dec 2019 0:00:00.0','GREGUTC'); % set scenario epoch
+cmd1 = ['SetValues "1 Dec 2019 0:00:00.0" ' mat2str(dT)]; % [] is used to store matrix or vector in matlab
 cmd1 = [cmd1 ' 0.1'];
-rtn = stkConnect(conid,'Animate','Scenario/Matlab_Basic',cmd1);
-rtn = stkConnect(conid,'Animate','Scenario/Matlab_Basic','Reset');
+rtn = stkConnect(conid,'Animate','Scenario/Matlab_Basic',cmd1); % send connect command to stk
+rtn = stkConnect(conid,'Animate','Scenario/Matlab_Basic','Reset'); 
 disp('Set up the propagator and nodes for the satellites');
 [parameter] = Create_LEO(conid,'../etc/parameter-StarLink.xlsx');
-Create_Fac(conid);
-inc = str2num(parameter{4,1})*dtr;
+Create_Fac(conid); % call Create_Fac to create Facilities
+inc = str2num(parameter{4,1})*dtr; % inclination of orbit
 
 disp('save position info');
 [position, position_cbf]=Create_location(dT);

@@ -14,6 +14,9 @@ def sp_create_file_if_not_exit(filename):
                 raise
 
 def sp_month_map():
+    """
+    月份对编号的映射: Jan -> 1 ...
+    """
     month_to_num = {}
     month_to_num['Jan'] = 1
     month_to_num['Feb'] = 2
@@ -38,11 +41,16 @@ def sp_convert_UTC_to_timestamp(UTC_time):
     return ts;
 
 # reference: https://www.cnblogs.com/wt7018/p/11610286.html
+# 遍历文件夹下的所有文件
 def sp_walkFile(file):
+    # root 表示当前正在访问的文件夹路径
+    # dirs 表示该文件夹下的子目录名list
+    # files 表示该文件夹下的文件list
     for root, dirs, files in os.walk(file):
         filename_list = [];
-
+        # 遍历当前文件夹下的所有文件,并将csv文件放到filename_list之中并返回。
         for f in files:
+            # 组合文件夹路径和文件名形成文件的全路径名
             file_name = os.path.join(root, f);
             print(file_name)
             if(file_name.endswith(".csv")):

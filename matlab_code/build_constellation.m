@@ -2,9 +2,9 @@ clear all; close all; clc;
 global cycle No_snap No_fac No_leo tStart tStop dT constellation
 dT = 1.0;
 tStart = 0;
-dtr = pi/180;
-rtd = 180/pi;
-remMachine = stkDefaultHost;
+dtr = pi/180; // 弧度转换为角度 degree to radian
+rtd = 180/pi; // 角度转换为弧度 radian to degree
+remMachine = stkDefaultHost; 
 delete(get(0,'children'));
 conid=stkOpen(remMachine);
 

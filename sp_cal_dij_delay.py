@@ -5,10 +5,10 @@ import scipy.io as scio
 
 
 def dij_delay(parameter,error_rate, dT):
-    """calculate the area-to-area latency
-    :param parameter: two-dimensional list about parameter of constellations
-    :param error_rate: float, probability of satellite failure
-    :param dT: int, accuracy of the results
+    """calculate the area-to-area latency 进行区域i到区域j的延迟的计算
+    :param parameter: two-dimensional list about parameter of constellations 星座参数的二维列表
+    :param error_rate: float, probability of satellite failure 错误率-卫星发生失败的概率
+    :param dT: int, accuracy of the results 步长,应该是指的是分辨率
     """
     constellation_num = len(parameter[0])
     for constellation_index in range(constellation_num):

@@ -47,9 +47,9 @@ def perform_benchmark():
     path = 'etc\parameter.txt' # 路径不对做出了修改
     constellation_parameter = get_parameters(path) # 获取参数
     sp_cal_dij_delay.dij_delay(constellation_parameter, error_rate=0, dT=1) # 计算延迟
-    sp_cal_bandwidth.bandwidth(constellation_parameter,dT=60)
-    sp_cal_coverage.coverage(constellation_parameter)
-    sp_cal_betweenness.betweenness(constellation_parameter)
+    sp_cal_bandwidth.bandwidth(constellation_parameter,dT=60) # 计算带宽
+    sp_cal_coverage.coverage(constellation_parameter) # 进行覆盖范围的计算
+    sp_cal_betweenness.betweenness(constellation_parameter) # 进行中介中心性的计算
 
 if __name__ == '__main__':
     perform_benchmark()

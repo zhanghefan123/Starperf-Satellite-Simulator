@@ -91,15 +91,19 @@ def coverage(parameter):
     for i in range(len(latitude)):
         population_in_latitude_zone[int(math.floor(latitude[i] / 10)) + 9] += population[i]
     satellite_for_person = [[0 for i in range(18)] for i in range(constellation_num)]
-
+    # 遍历每个星座
     for constellation_index in range(constellation_num):
+        # 遍历18个纬度格
         for i in range(18):
+            # 如果这个纬度格内的人口不等于0
             if population_in_latitude_zone[i] != 0:
+                # 用在这个纬度格内的卫星数量 / 这个纬度格内的人口
                 satellite_for_person[constellation_index][i] = satellite_in_latitude[constellation_index][i] / \
                                                                population_in_latitude_zone[i]
+    # 保存为csv文件
     numpy.savetxt('sat_per_million_lat.csv', satellite_for_person, fmt='%f')
 
-    # 获取sheet 1，其中包含的是经度对人口的映射
+    # 获取sheet 1，其中包含的是经度对人口的映射，与纬度操作类似
     table = data.sheets()[1]
     longitude = table.col_values(0)[1::]
     population = table.col_values(1)[1::]

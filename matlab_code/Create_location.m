@@ -22,7 +22,7 @@ for i=1:No_leo
         llapos(3,j) = llapos(3,j) + alt(j); % altitude
     end
     position{index} = llapos;
-    position_cbf{index} = Lla2Cbf(position{index,1});
+    position_cbf{index} = Lla2Cbf(position{index,1}); % change LLA to XYZ
     index=index+1;
     
 end
@@ -32,7 +32,7 @@ for i=1:No_fac
     llapos(1,:) = llapos(1,:)+Lat(i);
     llapos(2,:) = llapos(2,:)+Long(i);
     position{index} = llapos;
-    position_cbf{index} = Lla2Cbf(position{index,1});
+    position_cbf{index} = Lla2Cbf(position{index,1}); % change LLA to XYZ
     index=index+1;
 end
 end

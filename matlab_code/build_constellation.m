@@ -37,6 +37,7 @@ disp('save position info');
 filename = [constellation '\position.mat'];
 save(filename,'position','position_cbf');
 disp('save delay info');
+% for each snap shot we calculate the delay
 for t = 1:cycle
     [delay] = Create_delay(position_cbf,t,inc);
 end
